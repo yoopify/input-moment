@@ -9,7 +9,9 @@ export default class InputMoment extends Component {
     prevMonthIcon: 'ion-ios-arrow-left',
     nextMonthIcon: 'ion-ios-arrow-right',
     minStep: 1,
-    hourStep: 1
+    hourStep: 1,
+    prefix: '',
+    suffix: ''
   };
 
   state = {
