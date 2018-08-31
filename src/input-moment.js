@@ -6,12 +6,18 @@ import Time from './time';
 
 export default class InputMoment extends Component {
   static defaultProps = {
-    prevMonthIcon: 'ion-ios-arrow-left',
-    nextMonthIcon: 'ion-ios-arrow-right',
+    locale: '',
+    weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     minStep: 1,
     hourStep: 1,
-    prefix: '',
-    suffix: ''
+    classNamePrefix: '',
+    nextIconElement: '>',
+    prevIconElement: '<',
+    dateButtonText: 'Date',
+    timeButtonText: 'Time',
+    saveButtonText: 'Save',
+    minutesText: 'Minutes',
+    hoursText: 'Hours'
   };
 
   state = {
@@ -33,58 +39,71 @@ export default class InputMoment extends Component {
     const {
       moment: m,
       className,
-      prevMonthIcon,
-      nextMonthIcon,
       minStep,
       hourStep,
       onSave,
+      nextIconElement,
+      prevIconElement,
+      classNamePrefix,
+      saveButtonText,
+      dateButtonText,
+      timeButtonText,
+      weekdays,
+      locale,
       ...props
     } = this.props;
-    const cls = cx('m-input-moment', className);
+    const cls = cx(classNamePrefix + 'm-input-moment', className);
 
     return (
-      <div className={cls} {...props}>
-        <div className="options">
+      <div className={cls}>
+        <div className={classNamePrefix + "options"}>
           <button
             type="button"
-            className={cx('ion-calendar im-btn', { 'is-active': tab === 0 })}
+            className={cx({ [classNamePrefix + 'is-active']: tab === 0 })}
             onClick={e => this.handleClickTab(e, 0)}
           >
-            Date
+            {dateButtonText}
           </button>
           <button
             type="button"
-            className={cx('ion-clock im-btn', { 'is-active': tab === 1 })}
+            className={cx({ [classNamePrefix + 'is-active']: tab === 1 })}
             onClick={e => this.handleClickTab(e, 1)}
           >
-            Time
+            {timeButtonText}
           </button>
         </div>
 
-        <div className="tabs">
+        <div className={classNamePrefix + "tabs"}>
           <Calendar
-            className={cx('tab', { 'is-active': tab === 0 })}
+            locale={locale}
+            weekdays={weekdays}
+            classNamePrefix={classNamePrefix}
+            className={cx(classNamePrefix + 'tab', { [classNamePrefix + 'is-active']: tab === 0 })}
             moment={m}
             onChange={this.props.onChange}
-            prevMonthIcon={this.props.prevMonthIcon}
-            nextMonthIcon={this.props.nextMonthIcon}
+            nextIconElement={nextIconElement}
+            prevIconElement={prevIconElement}
           />
           <Time
-            className={cx('tab', { 'is-active': tab === 1 })}
+            classNamePrefix={classNamePrefix}
+            className={cx(classNamePrefix + 'tab', { [classNamePrefix + 'is-active']: tab === 1 })}
             moment={m}
             minStep={this.props.minStep}
             hourStep={this.props.hourStep}
             onChange={this.props.onChange}
+            isTabActive={tab === 1}
+            minutesText={this.props.minutesText}
+            hoursText={this.props.hoursText}
           />
         </div>
 
         {this.props.onSave ? (
           <button
             type="button"
-            className="im-btn btn-save ion-checkmark"
+            className={cx(classNamePrefix + 'im-btn', classNamePrefix + 'btn-save')}
             onClick={this.handleSave}
           >
-            Save
+            {saveButtonText}
           </button>
         ) : null}
       </div>

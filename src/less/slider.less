@@ -9,15 +9,22 @@
   width: 100%;
   cursor: pointer;
 
-  .value {
-    position: absolute;
-    background-color: @color-blue;
-    border-radius: 3px;
-    top: 0;
+  .u-slider-bar {
     height: 100%;
   }
 
-  .handle {
+  .u-slider-bar {
+    position: absolute;
+    border-radius: 3px;
+    top: 0;
+    height: 100%;
+
+    &.u-slider-bar-0 {
+      background-color: @color-blue;
+    }
+  }
+
+  .u-slider-handle {
     position: absolute;
     width: @slider-size;
     height: @slider-size;
