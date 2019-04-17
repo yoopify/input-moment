@@ -32,6 +32,6 @@ example/bundle*
 
 dist
 lib
-# *.tgz
+*.tgz
 *.sublime-workspace
 *.sublime-project
